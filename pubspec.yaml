@@ -1,0 +1,19 @@
+name: circular_clip_route
+description: A page route which reveals its page by expanding a circular clip.
+version: 0.1.0
+author: Gabriel Terwesten <gabriel@terwesten.net>
+homepage: https://github.com/blaugold/circular_clip_route
+repository: https://github.com/blaugold/circular_clip_route
+issue_tracker: https://github.com/blaugold/circular_clip_route/issues
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.9.0

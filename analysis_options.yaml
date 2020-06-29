@@ -1,0 +1,5 @@
+extends: package:pedantic/analysis_optioins.yaml
+
+strong-mode:
+  implicit-cats: false
+  implicit-dynamic: false
