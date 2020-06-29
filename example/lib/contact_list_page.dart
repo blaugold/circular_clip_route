@@ -96,6 +96,8 @@ class _ContactListItemState extends State<ContactListItem> {
             builder: (context) =>
                 ContactDetailPage(contactInfo: widget.contactInfo),
             expandFrom: imageKey.currentContext,
+            curve: Curves.fastOutSlowIn,
+            reverseCurve: Curves.fastOutSlowIn.flipped,
             opacity: ConstantTween(1),
             transitionDuration: const Duration(seconds: 1),
           ),
@@ -183,18 +185,26 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
           FractionallySizedBox(
             widthFactor: 1,
             child: Container(
-              color: Colors.blue,
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                height: 220,
-                width: 220,
-                child: AvatarHero(contactInfo: widget.contactInfo),
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Container(
+                    height: 140,
+                    color: Colors.blue,
+                  ),
+                  Container(
+                    height: 220,
+                    width: 220,
+                    padding: const EdgeInsets.all(20.0),
+                    child: AvatarHero(contactInfo: widget.contactInfo),
+                  ),
+                ],
               ),
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Table(
               columnWidths: const {
                 0: IntrinsicColumnWidth(flex: 1),
