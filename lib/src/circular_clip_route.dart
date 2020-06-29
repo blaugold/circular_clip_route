@@ -26,6 +26,9 @@ class CircularClipRoute<T> extends PageRoute<T> {
   /// The [BuildContext] of the widget, which is used to determine the center
   /// of the expanding clip circle and its initial dimensions.
   ///
+  /// The [RenderObject] which eventually renders the widget, must be a
+  /// [RenderBox].
+  ///
   /// See also:
   ///
   /// * [CircularClipTransition.expandingRect], which is what [expandFrom] is
@@ -69,13 +72,31 @@ class CircularClipRoute<T> extends PageRoute<T> {
   @override
   String get barrierLabel => null;
 
+  Rect _expandingRect;
+
+  void _updateExpandingRect() {
+    setState(() {
+      assert(expandFrom.findRenderObject() is RenderBox);
+      final renderBox = expandFrom.findRenderObject() as RenderBox;
+      final transform = renderBox.getTransformTo(null);
+      _expandingRect = MatrixUtils.transformRect(
+        transform,
+        Offset.zero & renderBox.size,
+      );
+    });
+  }
+
   @override
-  Widget buildPage(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) =>
-      builder(context);
+  TickerFuture didPush() {
+    _updateExpandingRect();
+    return super.didPush();
+  }
+
+  @override
+  bool didPop(T result) {
+    _updateExpandingRect();
+    return super.didPop(result);
+  }
 
   @override
   Animation<double> createAnimation() {
@@ -87,19 +108,23 @@ class CircularClipRoute<T> extends PageRoute<T> {
   }
 
   @override
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) =>
+      builder(context);
+
+  @override
   Widget buildTransitions(
     BuildContext context,
     Animation<double> animation,
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    final expandingRectBox = expandFrom.findRenderObject() as RenderBox;
-    final expandingRect =
-        expandingRectBox.localToGlobal(Offset.zero) & expandingRectBox.size;
-
     return CircularClipTransition(
       animation: animation,
-      expandingRect: expandingRect,
+      expandingRect: _expandingRect,
       opacity: opacity,
       border: border,
       shadow: shadow,
