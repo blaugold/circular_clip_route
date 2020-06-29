@@ -59,7 +59,7 @@ class CircularClipRoute<T> extends PageRoute<T> {
   final Duration transitionDuration;
 
   // The expandFrom context is used when popping this route, to update the
-  // _clipRectTween. This is necessary to handle changes to the layout of
+  // _expandingRect. This is necessary to handle changes to the layout of
   // the routes below this one (e.g. window is resized), therefore they must be
   // kept around.
   @override
