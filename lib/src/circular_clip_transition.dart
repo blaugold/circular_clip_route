@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'circular_clip_route.dart';
 
@@ -34,14 +34,14 @@ class CircularClipTransition extends StatefulWidget {
 
   /// The default value for [border].
   static const kDefaultBorder = Border.fromBorderSide(BorderSide(
-    color: Colors.white,
+    color: Color(0xFFFFFFFF),
     width: 2,
   ));
 
   /// The default value for [shadow].
   static const kDefaultShadow = [
     BoxShadow(
-      color: Colors.black38,
+      color: Color(0x61000000),
       blurRadius: 100,
     )
   ];
