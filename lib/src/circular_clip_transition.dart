@@ -76,7 +76,7 @@ class CircularClipTransition extends StatefulWidget {
   /// The [Animatable] which is used to fade the transition in and out.
   ///
   /// When this option is not provided or is `null` it defaults to
-  /// [kDefaultOpacityAnimatable]. To use a fixed opacity pass something line
+  /// [kDefaultOpacityAnimatable]. To use a fixed opacity pass something like
   /// `ConstantTween(1.0)`.
   /// {@endtemplate}
   final Animatable<double> opacity;
