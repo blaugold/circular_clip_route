@@ -76,13 +76,13 @@ class ContactListItem extends StatefulWidget {
 }
 
 class _ContactListItemState extends State<ContactListItem> {
-  final imageKey = GlobalKey();
+  final _avatarKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: SizedBox(
-        key: imageKey,
+        key: _avatarKey,
         width: 50,
         height: 50,
         child: AvatarHero(contactInfo: widget.contactInfo),
@@ -95,7 +95,7 @@ class _ContactListItemState extends State<ContactListItem> {
           CircularClipRoute<void>(
             builder: (context) =>
                 ContactDetailPage(contactInfo: widget.contactInfo),
-            expandFrom: imageKey.currentContext,
+            expandFrom: _avatarKey.currentContext,
             curve: Curves.fastOutSlowIn,
             reverseCurve: Curves.fastOutSlowIn.flipped,
             opacity: ConstantTween(1),
