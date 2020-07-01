@@ -76,11 +76,15 @@ class CircularClipRoute<T> extends PageRoute<T> {
   void _updateExpandingRect() {
     setState(() {
       assert(expandFrom.findRenderObject() is RenderBox);
-      final renderBox = expandFrom.findRenderObject() as RenderBox;
-      final transform = renderBox.getTransformTo(null);
+      final expandFromRenderBox = expandFrom.findRenderObject() as RenderBox;
+      final expandFromTransform = expandFromRenderBox.getTransformTo(null);
+      final navigatorTransform =
+          navigator.context.findRenderObject().getTransformTo(null);
+      final transform = expandFromTransform
+        ..multiply(Matrix4.tryInvert(navigatorTransform));
       _expandingRect = MatrixUtils.transformRect(
         transform,
-        Offset.zero & renderBox.size,
+        Offset.zero & expandFromRenderBox.size,
       );
     });
   }
