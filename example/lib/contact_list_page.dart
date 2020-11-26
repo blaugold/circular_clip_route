@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class ContactInfo {
   const ContactInfo({
-    @required this.avatarAsset,
-    @required this.name,
-    @required this.email,
-    @required this.phone,
+    required this.avatarAsset,
+    required this.name,
+    required this.email,
+    required this.phone,
   });
 
   final String avatarAsset;
@@ -66,7 +66,7 @@ class ContactListPage extends StatelessWidget {
 
 class ContactListItem extends StatefulWidget {
   const ContactListItem({
-    @required this.contactInfo,
+    required this.contactInfo,
   });
 
   final ContactInfo contactInfo;
@@ -95,7 +95,7 @@ class _ContactListItemState extends State<ContactListItem> {
           CircularClipRoute<void>(
             builder: (context) =>
                 ContactDetailPage(contactInfo: widget.contactInfo),
-            expandFrom: _avatarKey.currentContext,
+            expandFrom: _avatarKey.currentContext!,
             curve: Curves.fastOutSlowIn,
             reverseCurve: Curves.fastOutSlowIn.flipped,
             opacity: ConstantTween(1),
@@ -111,7 +111,7 @@ class AvatarHero extends StatelessWidget {
   final ContactInfo contactInfo;
 
   const AvatarHero({
-    @required this.contactInfo,
+    required this.contactInfo,
   });
 
   @override
@@ -144,12 +144,12 @@ class AvatarHero extends StatelessWidget {
       createRectTween: (begin, end) {
         return RectTween(
           begin: Rect.fromCenter(
-            center: begin.center,
+            center: begin!.center,
             width: begin.width,
             height: begin.height,
           ),
           end: Rect.fromCenter(
-            center: end.center,
+            center: end!.center,
             width: end.width,
             height: end.height,
           ),
@@ -162,7 +162,7 @@ class AvatarHero extends StatelessWidget {
 
 class ContactDetailPage extends StatefulWidget {
   const ContactDetailPage({
-    @required this.contactInfo,
+    required this.contactInfo,
   });
 
   final ContactInfo contactInfo;
@@ -223,7 +223,7 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
     );
   }
 
-  TableRow _buildTableRow({String label, String value}) {
+  TableRow _buildTableRow({required String label, required String value}) {
     return TableRow(
       children: [
         IntrinsicWidth(

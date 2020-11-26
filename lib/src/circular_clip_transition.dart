@@ -49,17 +49,14 @@ class CircularClipTransition extends StatefulWidget {
   /// Creates  widget which reveals its [child] by expanding a circular clip
   /// from the center of [expandingRect] until the child is fully revealed.
   CircularClipTransition({
-    Key key,
-    @required this.animation,
-    @required this.expandingRect,
-    @required this.child,
-    Animatable<double> opacity,
+    Key? key,
+    required this.animation,
+    required this.expandingRect,
+    required this.child,
+    Animatable<double>? opacity,
     this.border = kDefaultBorder,
     this.shadow = kDefaultShadow,
-  })  : assert(animation != null),
-        assert(expandingRect != null),
-        assert(child != null),
-        this.opacity = opacity ?? kDefaultOpacityAnimatable,
+  })  : this.opacity = opacity ?? kDefaultOpacityAnimatable,
         super(key: key);
 
   /// The animation which controls the progress (0 to 1) of the transition.
@@ -85,13 +82,13 @@ class CircularClipTransition extends StatefulWidget {
   /// The border which is drawn around the clip circle. The default is
   /// [kDefaultBorder]. To disable the border, set [border] to `null`.
   /// {@endtemplate}
-  final BoxBorder border;
+  final BoxBorder? border;
 
   /// {@template CircularClipTransition.shadow}
   /// The shadow which is drawn beneath the clip circle. The default is
   /// [kDefaultShadow]. To disable the shadow, set [shadow] to `null`.
   /// {@endtemplate}
-  final List<BoxShadow> shadow;
+  final List<BoxShadow>? shadow;
 
   /// The widget which is clipped by the clip circle.
   final Widget child;
@@ -105,7 +102,7 @@ class _CircularClipTransitionState extends State<CircularClipTransition> {
   /// rebuilds of the tree managed by the transition. The child is only
   /// rebuild when the configuration in [widget] actually changes (see
   /// [didUpdateWidget]).
-  Widget _child;
+  Widget? _child;
 
   @override
   void didUpdateWidget(CircularClipTransition oldWidget) {
@@ -126,13 +123,13 @@ class _CircularClipTransitionState extends State<CircularClipTransition> {
   Widget _buildChild() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final clipRectAnimation = RectTween(
+        final clipRectAnimation = _NonNullAnimatable(RectTween(
           begin: widget.expandingRect,
           end: _getExpandedClipRect(Rect.fromPoints(
             Offset.zero,
             Offset(constraints.maxWidth, constraints.maxHeight),
           )),
-        ).animate(widget.animation);
+        )).animate(widget.animation);
 
         final stackChildren = <Widget>[];
 
@@ -161,14 +158,10 @@ class _CircularClipTransitionState extends State<CircularClipTransition> {
 
         Widget child = Stack(children: stackChildren);
 
-        if (widget.opacity != null) {
-          child = FadeTransition(
-            opacity: widget.opacity.animate(widget.animation),
-            child: child,
-          );
-        }
-
-        return child;
+        return FadeTransition(
+          opacity: widget.opacity.animate(widget.animation),
+          child: child,
+        );
       },
     );
   }
@@ -185,8 +178,9 @@ class _CircularClipTransitionState extends State<CircularClipTransition> {
 
     var rectSize = Size.square(circleRadius * 2);
 
-    if (widget.border != null) {
-      rectSize = widget.border.dimensions.inflateSize(rectSize);
+    final border = widget.border;
+    if (border != null) {
+      rectSize = border.dimensions.inflateSize(rectSize);
     }
 
     return Rect.fromCenter(
@@ -221,11 +215,10 @@ class _CircularClipTransitionState extends State<CircularClipTransition> {
 /// positioned through a [rect].
 class _AbsolutePositionedTransition extends AnimatedWidget {
   const _AbsolutePositionedTransition({
-    Key key,
-    @required Animation<Rect> rect,
-    @required this.child,
-  })  : assert(rect != null),
-        super(key: key, listenable: rect);
+    Key? key,
+    required Animation<Rect> rect,
+    required this.child,
+  }) : super(key: key, listenable: rect);
 
   Animation<Rect> get rect => listenable as Animation<Rect>;
 
@@ -244,9 +237,8 @@ class _AbsolutePositionedTransition extends AnimatedWidget {
 /// clip rect.
 class _RectAnimationClipper extends CustomClipper<Rect> {
   _RectAnimationClipper({
-    @required this.animation,
-  })  : assert(animation != null),
-        super(reclip: animation);
+    required this.animation,
+  }) : super(reclip: animation);
 
   final Animation<Rect> animation;
 
@@ -256,4 +248,13 @@ class _RectAnimationClipper extends CustomClipper<Rect> {
   @override
   bool shouldReclip(_RectAnimationClipper oldClipper) =>
       animation != oldClipper.animation;
+}
+
+class _NonNullAnimatable<T> extends Animatable<T> {
+  _NonNullAnimatable(this.wrappedAnimatable);
+
+  final Animatable<T?> wrappedAnimatable;
+
+  @override
+  T transform(double t) => wrappedAnimatable.transform(t)!;
 }

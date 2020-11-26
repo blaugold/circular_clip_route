@@ -6,8 +6,8 @@ import 'circular_clip_transition.dart';
 /// the center of [expandFrom] until the page is fully revealed.
 class CircularClipRoute<T> extends PageRoute<T> {
   CircularClipRoute({
-    @required this.expandFrom,
-    @required this.builder,
+    required this.expandFrom,
+    required this.builder,
     this.curve = Curves.easeInOutCubic,
     this.reverseCurve = Curves.easeInOutCubic,
     this.opacity,
@@ -15,12 +15,7 @@ class CircularClipRoute<T> extends PageRoute<T> {
     this.shadow = CircularClipTransition.kDefaultShadow,
     this.maintainState = false,
     this.transitionDuration = const Duration(milliseconds: 500),
-  })  : assert(expandFrom != null),
-        assert(builder != null),
-        assert(curve != null),
-        assert(reverseCurve != null),
-        assert(maintainState != null),
-        assert(transitionDuration != null);
+  });
 
   /// The [BuildContext] of the widget, which is used to determine the center
   /// of the expanding clip circle and its initial dimensions.
@@ -44,13 +39,13 @@ class CircularClipRoute<T> extends PageRoute<T> {
   final Curve reverseCurve;
 
   /// {@macro CircularClipTransition.opacity}
-  final Animatable<double> opacity;
+  final Animatable<double>? opacity;
 
   /// {@macro CircularClipTransition.border}
   final BoxBorder border;
 
   /// {@macro CircularClipTransition.shadow}
-  final List<BoxShadow> shadow;
+  final List<BoxShadow>? shadow;
 
   @override
   final bool maintainState;
@@ -66,12 +61,12 @@ class CircularClipRoute<T> extends PageRoute<T> {
   bool get opaque => false;
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
-  Rect _expandingRect;
+  late Rect _expandingRect;
 
   void _updateExpandingRect() {
     setState(() {
@@ -79,9 +74,9 @@ class CircularClipRoute<T> extends PageRoute<T> {
       final expandFromRenderBox = expandFrom.findRenderObject() as RenderBox;
       final expandFromTransform = expandFromRenderBox.getTransformTo(null);
       final navigatorTransform =
-          navigator.context.findRenderObject().getTransformTo(null);
+          navigator!.context.findRenderObject()!.getTransformTo(null);
       final transform = expandFromTransform
-        ..multiply(Matrix4.tryInvert(navigatorTransform));
+        ..multiply(Matrix4.tryInvert(navigatorTransform)!);
       _expandingRect = MatrixUtils.transformRect(
         transform,
         Offset.zero & expandFromRenderBox.size,
@@ -96,7 +91,7 @@ class CircularClipRoute<T> extends PageRoute<T> {
   }
 
   @override
-  bool didPop(T result) {
+  bool didPop(T? result) {
     _updateExpandingRect();
     return super.didPop(result);
   }
