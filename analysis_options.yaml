@@ -1,4 +1,4 @@
-extends: package:pedantic/analysis_optioins.yaml
+extends: package:pedantic/analysis_options.yaml
 
 strong-mode:
   implicit-cats: false
