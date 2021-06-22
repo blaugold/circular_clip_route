@@ -8,7 +8,7 @@ A Flutter package which provides a page route which reveals its page by expandin
 
 <img src="https://raw.githubusercontent.com/blaugold/circular_clip_route/master/doc/example-screen-recording.gif" height="600">
 
-This drawing visualises the geometry involved in creating the route transition.
+This drawing visualizes the geometry involved in creating the route transition.
 
 <img src="https://raw.githubusercontent.com/blaugold/circular_clip_route/master/doc/Geometry.svg" width="600" alt="Illustration of the geometry of the transition">
 
