@@ -42,7 +42,7 @@ class CircularClipRoute<T> extends PageRoute<T> {
   final Animatable<double>? opacity;
 
   /// {@macro CircularClipTransition.border}
-  final BoxBorder border;
+  final BoxBorder? border;
 
   /// {@macro CircularClipTransition.shadow}
   final List<BoxShadow>? shadow;
