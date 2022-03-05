@@ -1,3 +1,7 @@
+## [0.2.0+2] - 2022-03-05
+
+fix: make `CircularClipRoute.border` nullable
+
 ## [0.2.0+1] - 2021-12-22
 
 docs: rewrite README
