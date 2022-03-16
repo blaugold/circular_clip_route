@@ -2,7 +2,7 @@ name: circular_clip_route
 description:
   A page route, which reveals its page by expanding a circular clip from an
   anchor widget.
-version: 0.2.0+2
+version: 0.2.0+3
 homepage: https://github.com/blaugold/circular_clip_route
 repository: https://github.com/blaugold/circular_clip_route
 issue_tracker: https://github.com/blaugold/circular_clip_route/issues

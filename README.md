@@ -8,6 +8,21 @@ widget.
   <img src="https://raw.githubusercontent.com/blaugold/circular_clip_route/master/doc/example-screen-recording.gif" height="500">
 </div>
 
+---
+
+If you're looking for a **database solution**, check out
+[`cbl`](https://pub.dev/packages/cbl), another project of mine. It brings
+Couchbase Lite to **standalone Dart** and **Flutter**, with support for:
+
+- **Full-Text Search**,
+- **Expressive Queries**,
+- **Data Sync**,
+- **Change Notifications**
+
+and more.
+
+---
+
 # Getting started
 
 To use the `CircularClipRoute`, provide it the context from which the animation

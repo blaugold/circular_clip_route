@@ -1,10 +1,14 @@
+## [0.2.0+3] - 2022-03-16
+
+- docs: add reference to `cbl`
+
 ## [0.2.0+2] - 2022-03-05
 
-fix: make `CircularClipRoute.border` nullable
+- fix: make `CircularClipRoute.border` nullable
 
 ## [0.2.0+1] - 2021-12-22
 
-docs: rewrite README
+- docs: rewrite README
 
 ## [0.2.0] - 2021-03-03
 
@@ -28,6 +32,8 @@ docs: rewrite README
 
 - Initial release.
 
+[0.2.0+3]: https://github.com/blaugold/circular_clip_route/tree/v0.2.0+3
+[0.2.0+2]: https://github.com/blaugold/circular_clip_route/tree/v0.2.0+2
 [0.2.0+1]: https://github.com/blaugold/circular_clip_route/tree/v0.2.0+1
 [0.2.0]: https://github.com/blaugold/circular_clip_route/tree/v0.2.0
 [0.2.0-nullsafety.0]:
